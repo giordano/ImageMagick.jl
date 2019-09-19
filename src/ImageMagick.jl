@@ -4,7 +4,6 @@ using FixedPointNumbers, ColorTypes
 using FileIO: DataFormat, @format_str, Stream, File, filename, stream
 using InteractiveUtils: subtypes
 using ImageCore
-using Libdl
 
 Color1{T}           = Color{T,1}
 Color2{T,C<:Color1} = TransparentColor{C,T,2}
@@ -175,7 +174,7 @@ function image2wand(img, mapi=identity, quality=nothing, permute_horizontal=true
     T = eltype(imgw)
     channelorder = T<:Real ? "Gray" : ColorTypes.colorant_string(T)
     if T <: Union{RGB,RGBA,ARGB,BGRA,ABGR}
-        cs = libversion() > v"6.7.5" ? "sRGB" : "RGB"
+        cs = "sRGB"
     else
         cs = channelorder
     end
